@@ -44,5 +44,5 @@ input[type=text],input[type=tel]{width:100%;font:inherit;padding:12px;border:1px
 .foot p{margin:4px 0}
 .aviso{margin-top:12px!important;color:#c9ccb0}
 [hidden]{display:none!important}
-@media(min-width:700px){h1{font-size:2.4rem}.photos{grid-template-columns:1fr 1fr}.hero{padding:44px 0 48px}}
+@media(min-width:700px){h1{font-size:2.4rem}.hero{padding:44px 0 48px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

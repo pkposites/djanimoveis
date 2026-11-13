@@ -16,13 +16,13 @@ Use SÓ os fatos abaixo (tirados dos anúncios e do Instagram oficial). Não cri
 - Lançamento: 26 de novembro, às 8h.
 - WhatsApp: (21) 92008-0568 → `5521920080568`.
 - Rodapé: **"Djan Imóveis · Duque de Caxias/RJ"** (sem CRECI e sem endereço). Link Instagram https://www.instagram.com/djanimoveis/.
-- Imagens: em `_incoming/*.webp.b64` (base64). Decodifique para `public/assets/` (`base64 -d`), depois **apague a pasta `_incoming/`** no mesmo commit. `foto-1` (portaria renderizada) e `foto-2` (pergolado renderizado) são **imagens ilustrativas** → legenda "Imagem ilustrativa". `criativo-204x` é a arte do anúncio. `foto-3..5` são miniaturas pequenas (311px) — use só pequenas ou não use. `logo.webp` é 151px (use até ~64px de altura).
+- Imagens: em `_incoming/*.webp.b64` (base64). Decodifique para `public/assets/` (`base64 -d`), depois **apague a pasta `_incoming/`** no mesmo commit. `foto-1` tem o telefone (21) 92008-0568 impresso na arte e **não deve ser usada na página** (permite pular o filtro). Use só `foto-2` (pergolado renderizado), com legenda "Imagem ilustrativa". `criativo-204x` é a arte do anúncio. `foto-3..5` são miniaturas pequenas (311px) — use só pequenas ou não use. `logo.webp` é 151px (use até ~64px de altura).
 
 ## Estrutura da página (simples, uma página só, mobile-first, rápida, PT-BR)
 Página única e direta. Sem seções extras (sem lista de lazer, sem FAQ, sem "por que é acessível", sem presentão, sem CRECI, sem endereço).
 
 1. Hero: logo, selo "Lançamento 26/11 às 8h", título sobre o lote no Residencial Jardim Europa (Parque Equitativa, Duque de Caxias), **card de condições** em destaque: "Entrada em média de R$ 17 mil" + "Parcelas a partir de R$ 1.000", e lista curta só com: lotes a partir de 200 m²; parcelamento direto com a loteadora em até 204x; opções de até 48x sem juros e sem correção; sem consulta ao SPC e Serasa.
-2. Duas fotos (foto-1 e foto-2) com legenda "Imagem ilustrativa".
+2. Uma foto (somente foto-2) com legenda "Imagem ilustrativa". Não use foto-1: o telefone do WhatsApp está impresso na arte.
 3. **Filtro + formulário** (seção id="filtro"), logo abaixo das fotos:
    - Pergunta obrigatória (radio): "A entrada média de R$ 17 mil e parcelas a partir de R$ 1.000 cabem no seu planejamento?" → "Estou de acordo" / "Não no momento".
    - Se "Não no momento": NÃO mostra o botão do WhatsApp; mostra mensagem gentil ("Sem problema! Siga @djanimoveis para acompanhar novas oportunidades") e link do Instagram. Dispara `dataLayer.push({event:'lead_desqualificado'})`. Não envia ao Cadê o Lead.
