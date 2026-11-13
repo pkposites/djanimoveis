@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   var WA = '5521920080568';
-  var MSG = 'Olá! Vim pelo site e estou de acordo com a entrada média de R$ 17 mil e parcelas a partir de R$ 1.000. Quero saber mais sobre os terrenos no Residencial Jardim Europa.';
+  var MSG = 'Olá! Vim pelo site e estou de acordo com a entrada média de R$ 17 mil e parcelas a partir de R$ 1.000. Quero saber mais sobre os lotes no Residencial Jardim Europa.';
   var $ = function (id) { return document.getElementById(id); };
   var form = $('lead-form');
   var painelSim = $('painel-sim'), painelNao = $('painel-nao');
