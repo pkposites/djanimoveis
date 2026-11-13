@@ -16,7 +16,7 @@ const srv = createServer((q, r) => {
 const base = `http://localhost:${srv.address().port}`;
 
 const b = await chromium.launch(); const pg = await b.newPage();
-await pg.route(/cadeolead|facebook|googletagmanager/, r => r.abort());
+await pg.route(/cadeolead|facebook|googletagmanager|clarity/, r => r.abort());
 let popups = 0; await pg.addInitScript(() => { window.__opened = []; window.open = u => (window.__opened.push(u), {}); });
 await pg.goto(base + '/?utm_source=x&fbclid=y');
 const opened = () => pg.evaluate(() => window.__opened.length);
