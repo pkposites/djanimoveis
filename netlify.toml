@@ -1,0 +1,27 @@
+[build]
+  command = "node scripts/gen-config.mjs"
+  publish = "public"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://cadeolead.com.br https://connect.facebook.net https://www.googletagmanager.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://cadeolead.com.br https://*.facebook.com https://www.googletagmanager.com https://*.google-analytics.com; frame-src https://www.googletagmanager.com; form-action 'self'; base-uri 'self'; object-src 'none'"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/config.js"
+  [headers.values]
+    Cache-Control = "no-cache"

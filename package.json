@@ -1,0 +1,9 @@
+{
+  "name": "djanimoveis",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/gen-config.mjs",
+    "test": "node scripts/test.mjs"
+  }
+}
