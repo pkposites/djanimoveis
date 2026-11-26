@@ -17,6 +17,7 @@ h1{font-size:1.75rem;line-height:1.2;margin:0 0 8px}
 .sub{margin:0 0 22px;color:#e6e9cf}
 .cond-card{background:#fff;color:var(--dark);border-radius:14px;padding:16px 18px;margin:0 auto 16px;max-width:420px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
 .cond{margin:4px 0;font-size:1.2rem}
+.cond-ex{margin:0 0 8px;font-size:.9rem;opacity:.8}
 .facts{list-style:none;margin:0 auto;padding:0;max-width:420px;text-align:left;color:#e6e9cf;font-size:.95rem}
 .facts li{padding:4px 0 4px 22px;position:relative}
 .facts li::before{content:"✓";position:absolute;left:0;color:#c5cb86;font-weight:700}

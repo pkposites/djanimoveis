@@ -8,7 +8,7 @@ Publicação: Netlify (site `djanimoveis`, URL https://djanimoveis.netlify.app).
 Use SÓ os fatos abaixo (tirados dos anúncios e do Instagram oficial). Não crie CRECI, endereço, preços, metragens, prazos, nomes, depoimentos, números de lotes, endereço ou condições que não estejam aqui.
 
 ### Fatos permitidos
-- Destaques do filtro (obrigatórios, sempre com estas palavras): **"Entrada em média de R$ 17 mil"** e **"Parcelas a partir de R$ 1.000"**.
+- Destaques do filtro (atualizado em 26/11/2026, informado pela Djan): **"Entrada a partir de R$ 14 mil, parcelada"** (ex.: 5x de R$ 2.800; não precisa ter a entrada toda à vista) e **"Parcelas a partir de R$ 1.000"**, com o financiamento começando só depois que a entrada estiver paga. (Antes: "Entrada em média de R$ 17 mil".)
 - Empreendimento: **Residencial Jardim Europa**, no bairro **Parque Equitativa**, **Duque de Caxias** (região de Santa Cruz da Serra).
 - Produto: **lotes** no Parque Equitativa (Duque de Caxias). Lotes a partir de 200 m².
 - Entrada facilitada. Parcelamento direto com a loteadora em até 204x. Opções de até 48x sem juros e sem correção. Sem consulta ao SPC e Serasa.
@@ -21,13 +21,13 @@ Use SÓ os fatos abaixo (tirados dos anúncios e do Instagram oficial). Não cri
 ## Estrutura da página (simples, uma página só, mobile-first, rápida, PT-BR)
 Página única e direta. Sem seções extras (sem lista de lazer, sem FAQ, sem "por que é acessível", sem presentão, sem CRECI, sem endereço).
 
-1. Hero: logo, selo "Lançamento 26/11 às 8h", título sobre o lote no Residencial Jardim Europa (Parque Equitativa, Duque de Caxias), **card de condições** em destaque: "Entrada em média de R$ 17 mil" + "Parcelas a partir de R$ 1.000", e lista curta só com: lotes a partir de 200 m²; parcelamento direto com a loteadora em até 204x; opções de até 48x sem juros e sem correção; sem consulta ao SPC e Serasa.
+1. Hero: logo, selo "Lançamento 26/11 às 8h", título sobre o lote no Residencial Jardim Europa (Parque Equitativa, Duque de Caxias), **card de condições** em destaque: "Entrada a partir de R$ 14 mil, parcelada" + "Parcelas a partir de R$ 1.000" (com as linhas de apoio: ex. 5x de R$ 2.800; financiamento só depois da entrada paga), e lista curta só com: lotes a partir de 200 m²; parcelamento direto com a loteadora em até 204x; opções de até 48x sem juros e sem correção; sem consulta ao SPC e Serasa.
 2. Uma foto (somente foto-2) com legenda "Imagem ilustrativa". Não use foto-1: o telefone do WhatsApp está impresso na arte.
 3. **Filtro + formulário** (seção id="filtro"), logo abaixo das fotos:
-   - Pergunta obrigatória (radio): "A entrada média de R$ 17 mil e parcelas a partir de R$ 1.000 cabem no seu planejamento?" → "Estou de acordo" / "Não no momento".
+   - Pergunta obrigatória (radio): "Uma entrada a partir de R$ 14 mil, parcelada (ex.: 5x de R$ 2.800), e depois parcelas a partir de R$ 1.000 cabem no seu planejamento?" → "Estou de acordo" / "Não no momento".
    - Se "Não no momento": NÃO mostra o botão do WhatsApp; mostra mensagem gentil ("Sem problema! Siga @djanimoveis para acompanhar novas oportunidades") e link do Instagram. Dispara `dataLayer.push({event:'lead_desqualificado'})`. Não envia ao Cadê o Lead.
    - Se "Estou de acordo": mostra Nome e WhatsApp (DDD obrigatório, validação BR) e checkbox de consentimento LGPD com link para a política. Botão "Falar com a Djan no WhatsApp".
-   - Ao enviar (válido): `window.LeadHub?.identify({ name, phone })`; `window.LeadHub?.set({ "De acordo com entrada e parcela": "Sim", "Origem": "LP Djan" })`; `dataLayer.push({event:'generate_lead'})`; `fbq('track','Lead')` se fbq existir; POST para a function `/api/lead` (CAPI, ver abaixo, sem bloquear); depois abrir `const destino = window.LeadHub ? window.LeadHub.whatsappUrl(url) : url;` onde url = `https://wa.me/5521920080568?text=` + mensagem: "Olá! Vim pelo site e estou de acordo com a entrada média de R$ 17 mil e parcelas a partir de R$ 1.000. Quero saber mais sobre os lotes no Residencial Jardim Europa."
+   - Ao enviar (válido): `window.LeadHub?.identify({ name, phone })`; `window.LeadHub?.set({ "De acordo com entrada e parcela": "Sim", "Origem": "LP Djan" })`; `dataLayer.push({event:'generate_lead'})`; `fbq('track','Lead')` se fbq existir; POST para a function `/api/lead` (CAPI, ver abaixo, sem bloquear); depois abrir `const destino = window.LeadHub ? window.LeadHub.whatsappUrl(url) : url;` onde url = `https://wa.me/5521920080568?text=` + mensagem: "Olá! Vim pelo site e estou de acordo com a entrada a partir de R$ 14 mil parcelada e as parcelas a partir de R$ 1.000. Quero saber mais sobre os lotes no Residencial Jardim Europa."
    - **Não pode existir nenhum link direto para WhatsApp na página fora deste fluxo** (nem botão flutuante).
 4. Rodapé mínimo: "Djan Imóveis · Duque de Caxias/RJ", link de privacidade e aviso: "Valores médios e condições sujeitos a análise e disponibilidade; consulte a Djan Imóveis. Imagens ilustrativas."
 
