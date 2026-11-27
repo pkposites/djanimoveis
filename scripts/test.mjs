@@ -56,3 +56,16 @@ const { default: h } = await import('../netlify/functions/lead.mjs');
 const r = await h(new Request('http://x/api/lead', { method: 'POST', body: '{"name":"a","phone":"1"}' }));
 assert.deepEqual(await r.json(), { ok: true, capi: 'desligada' });
 console.log('TODOS OS TESTES OK');
+
+// 8) payload CAPI: PageView só com external_id/fbp; Lead com ph/fn/ln só com consentimento
+process.env.META_PIXEL_ID = '123'; process.env.META_CAPI_TOKEN = 't';
+const sent = []; globalThis.fetch = async (u, o) => (sent.push(JSON.parse(o.body)), { ok: true, status: 200 });
+const post = (b) => h(new Request('http://x/api/lead', { method: 'POST', body: JSON.stringify(b), headers: { 'user-agent': 'ua' } }));
+await post({ event_name: 'PageView', event_id: 'p1', external_id: 'v1', fbp: 'fb.1.1.2' });
+await post({ event_name: 'Lead', event_id: 'l1', consent: true, name: 'Maria Silva', phone: '5521988887777', external_id: 'v1', fbp: 'fb.1.1.2' });
+await post({ event_name: 'Lead', event_id: 'l2', consent: false, name: 'Maria Silva', phone: '5521988887777', external_id: 'v1' });
+const [pv, ld, ldNo] = sent.map(x => x.data[0]);
+assert.equal(pv.event_name, 'PageView'); assert(pv.user_data.external_id && pv.user_data.fbp && pv.user_data.country); assert(!pv.user_data.ph);
+assert(ld.user_data.ph && ld.user_data.fn && ld.user_data.ln && ld.user_data.external_id); assert.equal(ld.event_id, 'l1');
+assert(ldNo.user_data.external_id && !ldNo.user_data.ph && !ldNo.user_data.fn);
+console.log('CAPI payloads OK');
