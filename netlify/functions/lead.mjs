@@ -14,19 +14,27 @@ export default async (req) => {
   const token = process.env.META_CAPI_TOKEN;
   if (!pixel || !token) return json({ ok: true, capi: 'desligada' });
 
-  const name = String(body.name || '').trim().toLowerCase();
-  let phone = String(body.phone || '').replace(/\D/g, '');
-  if (phone && !phone.startsWith('55')) phone = '55' + phone;
-
+  const eventName = body.event_name === 'PageView' ? 'PageView' : 'Lead';
   const user_data = {};
-  if (phone) user_data.ph = [sha(phone)];
-  if (name) {
-    const parts = name.split(/\s+/);
-    user_data.fn = [sha(parts[0])];
-    if (parts.length > 1) user_data.ln = [sha(parts[parts.length - 1])];
-  }
+  // external_id (visitante, com hash), país e cookies do Meta: sempre, sem dado pessoal.
+  const ext = String(body.external_id || '').trim();
+  if (ext) user_data.external_id = [sha(ext)];
+  user_data.country = [sha('br')];
   if (body.fbp) user_data.fbp = String(body.fbp);
   if (body.fbc) user_data.fbc = String(body.fbc);
+
+  // Telefone e nome só no Lead e só com consentimento explícito (LGPD).
+  if (eventName === 'Lead' && body.consent === true) {
+    const name = String(body.name || '').trim().toLowerCase();
+    let phone = String(body.phone || '').replace(/\D/g, '');
+    if (phone && !phone.startsWith('55')) phone = '55' + phone;
+    if (phone) user_data.ph = [sha(phone)];
+    if (name) {
+      const parts = name.split(/\s+/);
+      user_data.fn = [sha(parts[0])];
+      if (parts.length > 1) user_data.ln = [sha(parts[parts.length - 1])];
+    }
+  }
   const ip = (req.headers.get('x-nf-client-connection-ip') || '').trim();
   if (ip) user_data.client_ip_address = ip;
   const ua = req.headers.get('user-agent');
@@ -34,7 +42,7 @@ export default async (req) => {
 
   const payload = {
     data: [{
-      event_name: 'Lead',
+      event_name: eventName,
       event_time: Math.floor(Date.now() / 1000),
       event_id: body.event_id ? String(body.event_id) : undefined,
       action_source: 'website',

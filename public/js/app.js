@@ -63,6 +63,7 @@
 
     var phone55 = '55' + normalizaTel(tel);
     var eventId = uuid();
+    var lp = window.__lp || { vid: '', fbp: function () { return cookie('_fbp'); }, fbc: function () { return cookie('_fbc'); } };
 
     try {
       if (window.LeadHub) {
@@ -82,7 +83,7 @@
       fetch('/api/lead', {
         method: 'POST', keepalive: true,
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ name: nome, phone: phone55, event_id: eventId, fbp: cookie('_fbp'), fbc: cookie('_fbc'), url: location.href })
+        body: JSON.stringify({ event_name: 'Lead', consent: lgpd, name: nome, phone: phone55, event_id: eventId, external_id: lp.vid, fbp: lp.fbp(), fbc: lp.fbc(), url: location.href })
       }).catch(function () {});
     } catch (_) {}
 
